@@ -1,12 +1,12 @@
 export interface OrgData {
 	name: string;
-	type: string;
+	department: string;
 	children: OrgData[];
 }
 
 export class OrgEntity implements OrgData {
 	name: string;
-	type: string;
+	department: string;
 	children: OrgEntity[];
 	parent?: OrgEntity;
 	constructor(orgStructure: string[], parent?: OrgEntity) {
@@ -14,7 +14,7 @@ export class OrgEntity implements OrgData {
 		const [name, ...reports] = orgStructure;
 		this.name = name.split('(')[0].trim();
 		const desigMatch = name.match(/\(([^)]+)\)/);
-		this.type = desigMatch && desigMatch[1].trim();
+		this.department = desigMatch && desigMatch[1].trim();
 
 		this.children = reports.map(r => r.substring(1))
 			.reduce((previous, current) => {
